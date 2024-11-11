@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "artist" ALTER COLUMN "old" DROP NOT NULL,
+ALTER COLUMN "careerStart" DROP NOT NULL;

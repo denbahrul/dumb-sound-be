@@ -6,6 +6,10 @@ class MusicServices {
     return await musicRepositories.addMusic(body);
   }
 
+  async getAllMusic() {
+    return await musicRepositories.getAllMusic();
+  }
+
   async getMusicById(id: number) {
     return await musicRepositories.getMusicById(id);
   }

@@ -19,4 +19,5 @@ MusicRoutes.post(
 
   musicControllers.addMusic
 );
+MusicRoutes.get("/", musicControllers.getAllMusic);
 MusicRoutes.get("/:id", musicControllers.getMusicById);

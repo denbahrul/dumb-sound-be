@@ -55,9 +55,9 @@ model Music {
 model Artist {
   id Int @id @default(autoincrement())
   name String
-  old Int
+  old Int?
   type ArtisTypeEnum
-  careerStart String
+  careerStart String?
 
   music Music[]
   createdAt DateTime @default(now())

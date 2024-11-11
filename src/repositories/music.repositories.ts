@@ -7,6 +7,10 @@ class MusicRepositories {
       data: addMusicDto,
     });
   }
+  async getAllMusic() {
+    return await prisma.music.findMany();
+  }
+
   async getMusicById(id: number) {
     return await prisma.music.findUnique({
       where: {

@@ -51,6 +51,22 @@ class MusicControllers {
       });
     }
   }
+
+  async getAllMusic(req: Request, res: Response) {
+    try {
+      const music = await musicServices.getAllMusic();
+      res.json({
+        music,
+      });
+    } catch (error) {
+      console.log(error);
+      const err = error as Error;
+      res.status(500).json({
+        message: err.message,
+      });
+    }
+  }
+
   async a(req: Request, res: Response) {
     try {
     } catch (error) {
