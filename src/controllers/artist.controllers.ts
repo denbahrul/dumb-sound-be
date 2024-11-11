@@ -11,6 +11,7 @@ class ArtistControllers {
       const artist = await artistServices.addArtist(value);
 
       res.json({
+        message: "Artist added",
         artist,
       });
     } catch (error) {

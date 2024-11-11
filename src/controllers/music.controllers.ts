@@ -25,6 +25,7 @@ class MusicControllers {
       const music = await musicServices.addMusic(value);
 
       res.json({
+        message: "Music added",
         music,
       });
     } catch (error) {

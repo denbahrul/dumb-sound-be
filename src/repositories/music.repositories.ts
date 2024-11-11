@@ -8,7 +8,11 @@ class MusicRepositories {
     });
   }
   async getAllMusic() {
-    return await prisma.music.findMany();
+    return await prisma.music.findMany({
+      include: {
+        artist: true,
+      },
+    });
   }
 
   async getMusicById(id: number) {
