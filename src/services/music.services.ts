@@ -1,8 +1,9 @@
+import { AddMusicDTO } from "@/dto/music.dto";
 import musicRepositories from "@/repositories/music.repositories";
 
 class MusicServices {
-  async addMusic(musicUrl: string) {
-    return await musicRepositories.addMusic(musicUrl);
+  async addMusic(body: AddMusicDTO) {
+    return await musicRepositories.addMusic(body);
   }
 
   async getMusicById(id: number) {

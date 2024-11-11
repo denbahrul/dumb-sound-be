@@ -1,21 +1,32 @@
 import cloudinaryServices from "@/services/cloudinary.services";
 import musicServices from "@/services/music.services";
+import { addMusicSchema } from "@/utils/schema/music.schema";
 import { Request, Response } from "express";
 
 class MusicControllers {
   async addMusic(req: Request, res: Response) {
     try {
-      const fileUpload = req.file;
+      const fileUpload = req.files as { [fieldname: string]: Express.Multer.File[] | undefined };
+      const body = req.body;
 
-      if (fileUpload) {
-        const musicUpload = await cloudinaryServices.upload(fileUpload as Express.Multer.File);
-        const musicUrl = musicUpload.secure_url;
-
-        const music = await musicServices.addMusic(musicUrl);
-        res.json({
-          music,
-        });
+      if (fileUpload && fileUpload.music) {
+        const music = fileUpload.music[0];
+        const musicUpload = await cloudinaryServices.musicUpload(music as Express.Multer.File);
+        body.musicUrl = musicUpload.secure_url;
       }
+
+      if (fileUpload && fileUpload.thumbnail) {
+        const thumbnail = fileUpload.thumbnail[0];
+        const thumbnailUpload = await cloudinaryServices.upload(thumbnail as Express.Multer.File);
+        body.thumbnail = thumbnailUpload.secure_url;
+      }
+
+      const value = await addMusicSchema.validateAsync(body);
+      const music = await musicServices.addMusic(value);
+
+      res.json({
+        music,
+      });
     } catch (error) {
       console.log(error);
       const err = error as Error;

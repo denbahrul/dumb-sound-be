@@ -1,11 +1,10 @@
+import { AddMusicDTO } from "@/dto/music.dto";
 import { prisma } from "@/libs/prisma";
 
 class MusicRepositories {
-  async addMusic(musicUrl: string) {
+  async addMusic(addMusicDto: AddMusicDTO) {
     return await prisma.music.create({
-      data: {
-        musicUrl: musicUrl,
-      },
+      data: addMusicDto,
     });
   }
   async getMusicById(id: number) {

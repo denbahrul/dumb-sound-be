@@ -13,9 +13,61 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model User {
+  id Int @id @default(autoincrement())
+  email String @unique
+  username String @unique
+  password String
+  profilePhoto String
+
+  role RoleEnum @default(USER)
+
+  createdAt DateTime @default(now())
+  updateAt DateTime @default(now()) @updatedAt
+
+  @@map("user")
+}
+
+enum RoleEnum {
+  ADMIN
+  USER
+}
+
+// model PremiumUser {
+
+// }
+
 model Music {
   id Int @id @default(autoincrement())
+  thumbnail String
   musicUrl String
+  title String
+  year Int
+  artist Artist @relation(fields: [artistId], references: [id], onDelete: Cascade) 
+  artistId Int
+
+  createdAt DateTime @default(now())
+  updateAt DateTime @default(now()) @updatedAt
 
   @@map("music")
 }
+
+model Artist {
+  id Int @id @default(autoincrement())
+  name String
+  old Int
+  type ArtisTypeEnum
+  careerStart String
+
+  music Music[]
+  createdAt DateTime @default(now())
+  updateAt DateTime @default(now()) @updatedAt
+
+  @@map("artist")
+}
+
+enum ArtisTypeEnum {
+  Solo
+  Group
+  Duo
+} 
